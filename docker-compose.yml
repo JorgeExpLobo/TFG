@@ -1,20 +1,40 @@
-version: "3.8"
-
 services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-n8n
+    restart: always
+    environment:
+      POSTGRES_USER: n8n
+      POSTGRES_PASSWORD: n8npassword
+      POSTGRES_DB: tfg_cooking_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
+    restart: always
     ports:
       - "5678:5678"
     environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_DATABASE=tfg_cooking_app
+      - DB_POSTGRESDB_USER=n8n
+      - DB_POSTGRESDB_PASSWORD=n8npassword
       - GENERIC_TIMEZONE=Europe/Madrid
       - TZ=Europe/Madrid
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=jorexpos
       - N8N_BASIC_AUTH_PASSWORD=123
+      - N8N_ENCRIPTION_KEY=EPPidtxmdMyoZ2xNIDyq6ZGLO6YWyaW/
+    depends_on:
+      - postgres
     volumes:
       - n8n_data:/home/node/.n8n
-    restart: always
 
 volumes:
   n8n_data:
+  postgres_data:
