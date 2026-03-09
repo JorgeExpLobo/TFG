@@ -29,7 +29,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=jorexpos
       - N8N_BASIC_AUTH_PASSWORD=123
-      - N8N_ENCRIPTION_KEY=EPPidtxmdMyoZ2xNIDyq6ZGLO6YWyaW/
+      - N8N_ENCRYPTION_KEY=EPPidtxmdMyoZ2xNIDyq6ZGLO6YWyaW/
     depends_on:
       - postgres
     volumes:
