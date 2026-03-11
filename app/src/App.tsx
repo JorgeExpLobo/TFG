@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar"
 import Topbar from "./components/Topbar"
 import Overlay from "./components/Overlay"
 import Chat from "./components/Chat/Chat"
+import Ingredients from "./components/Ingredients/Ingredients"
 
 import "./styles/layout.css"
 
@@ -35,15 +36,12 @@ function App() {
         toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
         toggleTheme={toggleTheme}
       />
-
-      
       {page === "home" && <Chat />}
-      {page === "ingredients" && <h1>Ingredients</h1>}
+      {page === "ingredients" && <Ingredients />}
+      {page === "recipes" && <h1>Recipes</h1>}
       {page === "diets" && <h1>Diets</h1>}
       {page === "expenses" && <h1>Expenses</h1>}
       {page === "configs" && <h1>Configs</h1>}
-
-
     </div>
   )
 }

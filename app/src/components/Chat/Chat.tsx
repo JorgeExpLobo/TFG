@@ -4,7 +4,6 @@ import ChatInput from "./ChatInput"
 import type { Message } from "../../types"
 
 function Chat() {
-
 	const [messages, setMessages] = useState<Message[]>([
 		{
 			id: crypto.randomUUID(),
@@ -12,18 +11,16 @@ function Chat() {
 			content: "¡Hola! Soy tu asistente de cocina, dime en qué te puedo ayudar 👨‍🍳",
 		}
 	])
-
 	const bottomRef = useRef<HTMLDivElement | null>(null)
 	const [isSending, setIsSending] = useState(false)
+
 	const sendMessage = async (text: string) => {
 	if (!text.trim() || isSending) return
-
 			const newMessage: Message = {
 				id: crypto.randomUUID(),
 				role: "user",
 				content: text
 			}
-
 			setMessages((prev) => [...prev, newMessage])
 			setIsSending(true)
 			try {
@@ -53,24 +50,15 @@ function Chat() {
 			}
 			setIsSending(false)
 		}
-
-	
-
 	useEffect(() => {
-
 		bottomRef.current?.scrollIntoView({
 			behavior: "smooth"
 		})
-
 	}, [messages])
-
 	return (
-
 		<main className="chat">
-
-			
 		<div className="messages">
-			{messages.map((msg, i) => {
+			{messages.map((msg) => {
 				return (
 					<MessageBubble
 						key={msg.id}
@@ -87,15 +75,10 @@ function Chat() {
 				}}
 			/>
 			)}
-
   		<div ref={bottomRef}></div>
 		</div>
-
-
 			<ChatInput onSend={sendMessage} />
-
 		</main>
-
 	)
 }
 

@@ -299,3 +299,34 @@ body.light {
     content: ".";
   }
 }
+
+/* Styling for components */
+
+.page-content table{
+  width:100%;
+  border-collapse: collapse;
+  margin-top:20px;
+}
+
+.page-content th,
+.page-content td{
+  padding:10px;
+  border-bottom:1px solid #444;
+  text-align:left;
+}
+
+.page{
+  position:absolute;
+  top:60px;
+  width:100%;
+  min-height:calc(100vh - 60px);
+
+  display:flex;
+  justify-content:center;
+}
+
+.page-content{
+  width:100%;
+  max-width:900px;
+  padding:20px;
+}
