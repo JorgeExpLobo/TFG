@@ -21,10 +21,11 @@ function App() {
   const toggleTheme = () => {
     setTheme(prev => prev === "dark" ? "light" : "dark")
   }
+  const [page, setPage] = useState("home")
   return (
     <div className="app">
 
-      <Sidebar open={sidebarOpen} />
+      <Sidebar open={sidebarOpen} setPage={setPage} />
 
       {sidebarOpen && (
         <Overlay close={() => setSidebarOpen(false)} />
@@ -35,7 +36,13 @@ function App() {
         toggleTheme={toggleTheme}
       />
 
-      <Chat />
+      
+      {page === "home" && <Chat />}
+      {page === "ingredients" && <h1>Ingredients</h1>}
+      {page === "diets" && <h1>Diets</h1>}
+      {page === "expenses" && <h1>Expenses</h1>}
+      {page === "configs" && <h1>Configs</h1>}
+
 
     </div>
   )
