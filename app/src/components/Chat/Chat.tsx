@@ -5,66 +5,89 @@ import type { Message } from "../../types"
 
 function Chat() {
 
-  const [messages, setMessages] = useState<Message[]>([])
+	const [messages, setMessages] = useState<Message[]>([
+		{
+			id: crypto.randomUUID(),
+			role: "assistant",
+			content: "¡Hola! Soy tu asistente de cocina, dime en qué te puedo ayudar 👨‍🍳",
+		}
+	])
 
-  const bottomRef = useRef<HTMLDivElement | null>(null)
+	const bottomRef = useRef<HTMLDivElement | null>(null)
+	const [isSending, setIsSending] = useState(false)
+	const sendMessage = async (text: string) => {
+	if (!text.trim() || isSending) return
 
-  const sendMessage = (text: string) => {
+			const newMessage: Message = {
+				id: crypto.randomUUID(),
+				role: "user",
+				content: text
+			}
 
-    const newMessage: Message = {
-      id: crypto.randomUUID(),
-      role: "user",
-      content: text
-    }
+			setMessages((prev) => [...prev, newMessage])
+			setIsSending(true)
+			try {
+				const res = await fetch("http://localhost:5678/webhook/api/message", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						message: text
+					})
+				})
+				const data = await res.json()
+				const aiMessage: Message = {
+					id: crypto.randomUUID(),
+					role: "assistant",
+					content: data.output
+				}
+				setMessages((prev) => [...prev, aiMessage])
+			} catch (error) {
+				const errorMessage: Message = {
+					id: crypto.randomUUID(),
+					role: "assistant",
+					content: "Error conectando con el asistente"
+				}
+				setMessages((prev) => [...prev, errorMessage])
+			}
+			setIsSending(false)
+		}
 
-    setMessages((prev) => [...prev, newMessage])
+	
 
-    simulateAI(text)
-  }
+	useEffect(() => {
 
-  const simulateAI = (text: string) => {
+		bottomRef.current?.scrollIntoView({
+			behavior: "smooth"
+		})
 
-    setTimeout(() => {
+	}, [messages])
 
-      const aiMessage: Message = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content: "Respuesta simulada de IA a: " + text
-      }
+	return (
 
-      setMessages((prev) => [...prev, aiMessage])
+		<main className="chat">
 
-    }, 1000)
+			
+		<div className="messages">
+			{messages.map((msg, i) => {
+				return (
+					<MessageBubble
+						key={msg.id}
+						message={msg}
+					/>
+				)
+			})}
 
-  }
+  		<div ref={bottomRef}></div>
+		</div>
 
-  useEffect(() => {
 
-    bottomRef.current?.scrollIntoView({
-      behavior: "smooth"
-    })
+			<ChatInput onSend={sendMessage} />
 
-  }, [messages])
+		</main>
 
-  return (
-
-    <main className="chat">
-
-      <div className="messages">
-
-        {messages.map((msg) => (
-          <MessageBubble key={msg.id} message={msg} />
-        ))}
-
-        <div ref={bottomRef}></div>
-
-      </div>
-
-      <ChatInput onSend={sendMessage} />
-
-    </main>
-
-  )
+	)
 }
 
 export default Chat

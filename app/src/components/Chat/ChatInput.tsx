@@ -24,6 +24,9 @@ function ChatInput({ onSend }: Props) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Escribe un mensaje..."
+        onKeyDown={(e) => {
+          if (e.key === "Enter") sendMessage()
+        }}
       />
 
       <button onClick={sendMessage}>
