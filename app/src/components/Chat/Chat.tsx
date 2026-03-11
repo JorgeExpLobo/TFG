@@ -78,6 +78,15 @@ function Chat() {
 					/>
 				)
 			})}
+			{isSending && (
+			<MessageBubble
+				message={{
+				id: "thinking",
+				role: "assistant",
+				content: ""
+				}}
+			/>
+			)}
 
   		<div ref={bottomRef}></div>
 		</div>

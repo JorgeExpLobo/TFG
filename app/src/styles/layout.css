@@ -278,3 +278,24 @@ body.light {
     filter: blur(0);
   }
 }
+
+/* AI Thinking text animation */
+.thinking-dots::after {
+  content: ".";
+  animation: thinking 1.5s steps(3, end) infinite;
+}
+
+@keyframes thinking {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
+  100% {
+    content: ".";
+  }
+}

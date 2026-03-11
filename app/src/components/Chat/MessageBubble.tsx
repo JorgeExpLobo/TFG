@@ -6,18 +6,21 @@ type Props = {
 }
 
 function MessageBubble({ message }: Props) {
-
-  
-const base = `message ${message.role === "assistant" ? "assistant" : "user"}`
-  return (
-    <div className={`${base}`}>
-      <ReactMarkdown>
-        {message.content}
-      </ReactMarkdown>
-    </div>
-  )
-
-
+  const isThinking = message.id === "thinking"
+  const base = `message ${message.role === "assistant" ? "assistant" : "user"}`
+    return (
+      <div className={`${base}`}>
+        {isThinking ? (
+          <span>
+            Pensando<span className="thinking-dots"></span>
+          </span>
+        ) : (
+          <ReactMarkdown>
+            {message.content}
+          </ReactMarkdown>
+        )}
+      </div>
+    )
 }
 
 export default MessageBubble
