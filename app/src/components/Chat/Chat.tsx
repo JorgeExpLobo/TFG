@@ -30,7 +30,9 @@ function Chat() {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({
-						message: text
+						message: text,
+						messageId: newMessage.id,
+						userId: 123 // TEST USER ID
 					})
 				})
 				const data = await res.json()

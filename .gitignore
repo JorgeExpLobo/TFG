@@ -1,4 +1,4 @@
-node_modules/
+/backend/dist/
 /backend/node_modules
 .env
 .env.local
@@ -6,3 +6,4 @@ node_modules/
 Thumbs.db
 .vscode/
 .vite/
+credentials.json
