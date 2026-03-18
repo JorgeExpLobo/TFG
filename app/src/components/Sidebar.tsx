@@ -1,21 +1,26 @@
 type Props = {
 	open: boolean
 	setPage: (page: string) => void
+	closeSidebar: () => void
 }
 
-function Sidebar({ open, setPage }: Props) {
+function Sidebar({ open, setPage, closeSidebar }: Props) {
+	const setPageAndClose = (page: string) => {
+		setPage(page)
+		closeSidebar()
+	}
 	return (
 		<nav className={`sidebar ${open ? "open" : ""}`}>
 			<h2>Menu</h2>
 			<ul className="sidebar-options">
-				<li onClick={() => setPage("home")}>Home</li>
-				<li onClick={() => setPage("ingredients")}>Ingredients</li>
-				<li onClick={() => setPage("recipes")}>Recipes</li>
-				<li onClick={() => setPage("diets")}>Diets</li>
-				<li onClick={() => setPage("expenses")}>Expenses</li>
+				<li onClick={() => setPageAndClose("home")}>Home</li>
+				<li onClick={() => setPageAndClose("ingredients")}>Ingredients</li>
+				<li onClick={() => setPageAndClose("recipes")}>Recipes</li>
+				<li onClick={() => setPageAndClose("diets")}>Diets</li>
+				<li onClick={() => setPageAndClose("expenses")}>Expenses</li>
 			</ul>
 			<ul className="sidebar-settings">
-				<li onClick={() => setPage("settings")}>Settings</li>
+				<li onClick={() => setPageAndClose("settings")}>Settings</li>
 			</ul>
 		</nav>
 	)

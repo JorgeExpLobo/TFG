@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="app">
 
-      <Sidebar open={sidebarOpen} setPage={setPage} />
+      <Sidebar open={sidebarOpen} setPage={setPage} closeSidebar={() => setSidebarOpen(false)} />
 
       {sidebarOpen && (
         <Overlay close={() => setSidebarOpen(false)} />

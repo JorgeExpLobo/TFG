@@ -24,7 +24,7 @@ function Chat() {
 			setMessages((prev) => [...prev, newMessage])
 			setIsSending(true)
 			try {
-				const res = await fetch("http://localhost:5678/webhook/api/message", {
+				const res = await fetch("http://localhost:5678/webhook-test/api/message", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
