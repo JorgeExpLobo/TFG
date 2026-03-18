@@ -32,7 +32,7 @@ function Chat() {
 					body: JSON.stringify({
 						message: text,
 						messageId: newMessage.id,
-						userId: 123 // TEST USER ID
+						userId: "1fc7fe0d-365c-44b1-8314-7dc0bb774b63" // TEST USER ID
 					})
 				})
 				const data = await res.json()
